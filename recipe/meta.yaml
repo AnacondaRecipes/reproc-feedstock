@@ -126,7 +126,8 @@ about:
   license_family: MIT
   summary: reproc (Redirected Process) is a cross-platform C/C++ library that simplifies starting, stopping and communicating with external programs.
   dev_url: https://github.com/DaanDeMeyer/reproc
-  doc_url:
+  doc_url: https://github.com/DaanDeMeyer/reproc#reproc
+  doc_src_url: https://github.com/DaanDeMeyer/reproc
 
 extra:
   recipe-maintainers:
