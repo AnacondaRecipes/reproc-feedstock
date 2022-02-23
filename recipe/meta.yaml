@@ -15,6 +15,8 @@ source:
 
 build:
   number: {{ build_number }}
+  missing_dso_whitelist:  # [s390x]
+    - $RPATH/ld64.so.1    # [s390x]  Something is slightly amiss in the s390x build process.
 
 requirements:
   build:
