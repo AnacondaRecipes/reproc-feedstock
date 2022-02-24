@@ -1,4 +1,7 @@
-{% set version = "14.2.3" %}
+{% set version = "14.2.4" %}
+{% set sha_hash = "55c780f7faa5c8cabd83ebbb84b68e5e0e09732de70a129f6b3c801e905415dd" %}
+{% set build_number = "0" %}
+
 
 package:
   name: reproc
@@ -6,12 +9,21 @@ package:
 
 source:
   - url: https://github.com/DaanDeMeyer/reproc/archive/v{{ version }}.tar.gz
-    sha256: ea87db7a780a81bc27bce3e6c8e5f31b831fb8a1d06c6b5c2e1c2554d1c55e00
+    sha256: {{ sha_hash }}
     patches:
       - apple_gettime.patch  # [osx]
 
 build:
-  number: 0
+  number: {{ build_number }}
+  missing_dso_whitelist:  # [s390x]
+    - $RPATH/ld64.so.1    # [s390x]  Something is slightly amiss in the s390x build process.
+
+requirements:
+  build:
+    - {{ compiler("c") }}
+    - {{ compiler("cxx") }}
+    - cmake
+    - ninja
 
 outputs:
   - name: reproc
@@ -24,8 +36,7 @@ outputs:
       build:
         - {{ compiler("c") }}
         - cmake
-        - make   # [unix]
-        - ninja  # [win]
+        - ninja
     test:
       commands:
         - test -f ${PREFIX}/include/reproc/run.h                          # [unix]
@@ -42,18 +53,17 @@ outputs:
     script: bld_cpp.bat   # [win]
     build:
       run_exports:
-        - '{{ pin_subpackage('reproc-cpp', 'x.x') }}'
+        - {{ pin_subpackage('reproc-cpp', 'x.x') }}
     requirements:
       build:
-        - '{{ compiler("c") }}'
-        - '{{ compiler("cxx") }}'
+        - {{ compiler("c") }}
+        - {{ compiler("cxx") }}
         - cmake
-        - make   # [unix]
-        - ninja  # [win]
+        - ninja
       host:
-        - "{{ pin_subpackage('reproc', exact=True ) }}"
+        - {{ pin_subpackage('reproc', exact=True ) }}
       run:
-        - "{{ pin_subpackage('reproc', exact=True ) }}"
+        - {{ pin_subpackage('reproc', exact=True ) }}
     test:
       commands:
         - test -f ${PREFIX}/include/reproc++/reproc.hpp               # [unix]
@@ -73,12 +83,11 @@ outputs:
         - reproc
     requirements:
       build:
-        - '{{ compiler("c") }}'
+        - {{ compiler("c") }}
         - cmake
-        - make   # [unix]
-        - ninja  # [win]
+        - ninja
       host:
-        - "{{ pin_subpackage('reproc', exact=True ) }}"
+        - {{ pin_subpackage('reproc', exact=True ) }}
     test:
       commands:
         - test ! -f ${PREFIX}/include/reproc/run.h                          # [unix]
@@ -96,15 +105,14 @@ outputs:
         - reproc-cpp
     requirements:
       build:
-        - '{{ compiler("c") }}'
-        - '{{ compiler("cxx") }}'
+        - {{ compiler("c") }}
+        - {{ compiler("cxx") }}
         - cmake
-        - make   # [unix]
-        - ninja  # [win]
+        - ninja
       host:
-        - "{{ pin_subpackage('reproc', exact=True ) }}"
-        - "{{ pin_subpackage('reproc-static', exact=True ) }}"
-        - "{{ pin_subpackage('reproc-cpp', exact=True ) }}"
+        - {{ pin_subpackage('reproc', exact=True ) }}
+        - {{ pin_subpackage('reproc-static', exact=True ) }}
+        - {{ pin_subpackage('reproc-cpp', exact=True ) }}
     test:
       commands:
         - test ! -f ${PREFIX}/include/reproc++/reproc.hpp                # [unix]
@@ -117,8 +125,11 @@ about:
   home: https://github.com/DaanDeMeyer/reproc
   license_file: LICENSE
   license: MIT
+  license_family: MIT
   summary: reproc (Redirected Process) is a cross-platform C/C++ library that simplifies starting, stopping and communicating with external programs.
   dev_url: https://github.com/DaanDeMeyer/reproc
+  doc_url: https://github.com/DaanDeMeyer/reproc#reproc
+  doc_src_url: https://github.com/DaanDeMeyer/reproc
 
 extra:
   recipe-maintainers:
