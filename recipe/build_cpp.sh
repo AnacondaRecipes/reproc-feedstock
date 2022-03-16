@@ -17,6 +17,7 @@ echo "SRC_DIR: ${SRC_DIR}"
 cmake -G "Ninja" \
       ${CMAKE_ARGS} \
       ${BUILD_TYPE} \
+      -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_INSTALL_PREFIX=$PREFIX \
       -DCMAKE_INSTALL_LIBDIR=lib \
       -DREPROC++=ON \
