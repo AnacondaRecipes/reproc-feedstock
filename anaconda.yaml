@@ -1,0 +1,9 @@
+anaconda_config_version: 1
+upstream_sources:
+  - github:
+      identifier: daandemeyer/reproc
+    packages:
+      - reproc
+      - reproc-cpp
+      - reproc-cpp-static
+      - reproc-static
