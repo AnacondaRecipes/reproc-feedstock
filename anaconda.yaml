@@ -1,7 +1,11 @@
 anaconda_config_version: 1
 upstream_sources:
   - github:
-      identifier: daandemeyer/reproc
+      identifier: DaanDeMeyer/reproc
+      use_max_tag: true
+      include_regex: ^v\d+\.\d+\.\d+$
+      from_pattern: ^v(.+)$
+      to_pattern: \1
     packages:
       - reproc
       - reproc-cpp
