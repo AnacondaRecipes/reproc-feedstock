@@ -43,6 +43,7 @@ outputs:
       build:
         - {{ stdlib("c") }}
         - {{ compiler("c") }}
+        - {{ compiler("cxx") }}
         - cmake
         - ninja-base
     test:
@@ -51,6 +52,7 @@ outputs:
       requires:
         - {{ stdlib("c") }}
         - {{ compiler("c") }}
+        - {{ compiler("cxx") }}
         - cmake
         - ninja-base
       commands:
@@ -135,6 +137,7 @@ outputs:
       build:
         - {{ stdlib("c") }}
         - {{ compiler("c") }}
+        - {{ compiler("cxx") }}
         - cmake
         - ninja-base
       run_constrained:
@@ -145,6 +148,7 @@ outputs:
       requires:
         - {{ stdlib("c") }}
         - {{ compiler("c") }}
+        - {{ compiler("cxx") }}
         - cmake
         - ninja-base
       commands:
