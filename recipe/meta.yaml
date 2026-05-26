@@ -41,8 +41,8 @@ outputs:
         - {{ pin_subpackage('reproc', 'x.x') }}
     requirements:
       build:
-        - {{ compiler("c") }}
         - {{ stdlib("c") }}
+        - {{ compiler("c") }}
         - cmake
         - ninja-base
     test:
